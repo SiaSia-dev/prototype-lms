@@ -26,6 +26,7 @@ Créer une expérience plus immersive et pérenne en valorisant du contenu exist
 
 ## 📁 Structure du projet
 
+````
 mini-lms/ 
 ├── public/ # Fichiers statiques (CSS, JS, images) 
 ├── views/ # Templates HTML ou EJS 
@@ -33,6 +34,7 @@ mini-lms/
 ├── app.js # Point d’entrée de l’application 
 ├── README.md # Ce fichier 
 ├── package.json # Dépendances et scripts
+````
 
 ## 🧪 Résultat
 
