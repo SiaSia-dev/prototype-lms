@@ -1,0 +1,29 @@
+doctype html
+html(lang="fr")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title #{title}
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="/css/main.css")
+  body
+    header.header
+      .header-content
+        .logo 
+          img.logo-img(src="/images/Explorez.jpg", alt="Logo", width="74", height="64")
+          span.logo-text
+            | Récits<span.logo-separator> | </span>Horizons numériques<span.logo-separator> | </span>Visuels
+        nav.user-nav
+          if user
+            span Bonjour La Démo 😜!
+            form(method="POST", action="/logout", style="display:inline")
+              button.btn-nav(type="submit") Déconnexion
+          else
+            form(method="POST", action="/auth/demo", style="display:inline")
+              button.btn-nav(type="submit") Demo Rapide
+
+    block content
+
+    script(src="/js/main.js")

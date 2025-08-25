@@ -1,0 +1,52 @@
+extends layouts/main
+
+block content
+  .main-container.single-column
+    .main-content
+      .course-header
+        h1 Newsletter → Formation Interactive
+        p.course-subtitle
+          | Prototype : comment convertir ma Newsletter 
+          strong "Récits | Horizons numériques | Visuels" 
+          | en parcours d'apprentissage structuré.
+        
+        .course-stats
+          .stat-item
+            span 📚
+            span 4 leçons interactives
+          .stat-item  
+            span ⏱️
+            span 45 minutes
+          .stat-item
+            span 🎯
+            span Méthode ADDIE
+          .stat-item
+            span 🏆
+            span Certification
+
+      .modules-overview
+        .module-card-single
+          h3 📧 Module : "Newsletter → Formation Interactive"
+          p.module-description
+            | Découvrez comment transformer votre contenu existant en véritable parcours d'apprentissage. 
+            | Méthode reproductible basée sur l'ingénierie pédagogique.
+          
+          .lesson-preview
+            .lesson-preview-item
+              span.lesson-preview-title 1. Introduction : Pourquoi Transformer ?
+              span.lesson-preview-duration 5 min
+            .lesson-preview-item
+              span.lesson-preview-title 2. Méthode ADDIE Appliquée
+              span.lesson-preview-duration 15 min
+            .lesson-preview-item
+              span.lesson-preview-title 3. Transformation Pratique
+              span.lesson-preview-duration 20 min
+            .lesson-preview-item
+              span.lesson-preview-title 4. Validation & Certification
+              span.lesson-preview-duration 5 min
+
+          if user
+            a.btn-start(href="/module") Accéder au Module
+          else
+            form(method="POST", action="/auth/demo", style="margin-top: 1rem")
+              button.btn-start(type="submit") Commencer la Démo

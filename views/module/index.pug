@@ -1,0 +1,78 @@
+extends ../layouts/main
+
+block content
+  .main-container
+    aside.sidebar
+      .course-title Newsletter → Formation
+      
+      .module-section
+        .module-header Module Unique
+        ul.lesson-list
+          li.lesson-item
+            a.lesson-link.active(href="/lesson/1") 1. Introduction
+          li.lesson-item  
+            a.lesson-link(href="/lesson/2") 2. Méthode ADDIE
+          li.lesson-item
+            a.lesson-link(href="/lesson/3") 3. Transformation
+          li.lesson-item
+            a.lesson-link(href="/lesson/4") 4. Validation
+
+    main.main-content
+      .course-header
+        h1 Newsletter → Formation Interactive
+        p.course-subtitle Prototype de transformation pédagogique en 4 étapes
+        
+        .course-stats
+          .stat-item
+            span 📚
+            span 4 leçons
+          .stat-item
+            span ⏱️  
+            span 45 minutes
+          .stat-item
+            span 🎯
+            span 0% complété
+
+      .modules-overview
+        .lesson-grid
+          .lesson-card
+            .lesson-number 1
+            .lesson-info
+              h3 Pourquoi Transformer ?
+              p Comprendre les enjeux de la transformation newsletter → formation interactive
+              .lesson-meta
+                span ⏱️ 5 minutes
+                span 🎯 Découverte
+            a.btn-lesson(href="/lesson/1") Commencer
+
+          .lesson-card
+            .lesson-number 2  
+            .lesson-info
+              h3 Méthode ADDIE Appliquée
+              p Analyse, Design, Développement, Implémentation, Évaluation
+              .lesson-meta
+                span ⏱️ 15 minutes  
+                span 🎯 Méthode
+            a.btn-lesson(href="/lesson/2") Commencer
+
+          .lesson-card
+            .lesson-number 3
+            .lesson-info  
+              h3 Transformation Pratique
+              p Cas concret : votre newsletter transformée étape par étape
+              .lesson-meta
+                span ⏱️ 20 minutes
+                span 🎯 Pratique  
+            a.btn-lesson(href="/lesson/3") Commencer
+
+          .lesson-card
+            .lesson-number 4
+            .lesson-info
+              h3 Validation & Certification  
+              p Quiz final et certification de vos compétences acquises
+              .lesson-meta
+                span ⏱️ 5 minutes
+                span 🎯 Évaluation
+            a.btn-lesson(href="/lesson/4") Commencer
+
+

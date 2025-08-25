@@ -1,0 +1,149 @@
+extends ../layouts/main
+
+block content  
+  .main-container
+    aside.sidebar
+      .course-title Newsletter vers Formation
+      
+      .module-section
+        .module-header Module Unique
+        ul.lesson-list
+          each lessonItem, index in lessons
+            li.lesson-item
+              a.lesson-link(href="/lesson/" + lessonItem.id, class=lessonItem.id === lesson.id ? 'active' : '')
+                | #{lessonItem.id}. #{lessonItem.title.split(':')[0]}
+
+    main.main-content
+      .lesson-header
+        nav.breadcrumb
+          a(href="/") Prototype LMS
+          |  > 
+          a(href="/module") Newsletter vers Formation  
+          |  > 
+          strong #{lesson.title}
+        
+        .progress-container
+          .progress-label
+            span Progression du module
+            span Leçon #{lesson.id} sur #{lessons.length}
+          .progress-bar
+            .progress-fill(style="width: " + progress + "%")
+
+        h1.lesson-title #{lesson.title}
+        .lesson-meta  
+          span 📅 Prototype 2025
+          span ⏱️ #{lesson.duration} minutes
+          span 🎯 Demonstration
+
+      .lesson-content
+        .Newsletter-info
+          .Newsletter-tag Contenu Prototype
+          span Leçon basée sur la methode d'ingenierie pedagogique ADDIE
+
+        .content-section
+          if lesson.id === 1
+            h2 🎯 Pourquoi Transformer sa Newsletter ?
+            p
+              | Une Newsletter classique est un format de 
+              strong consommation passive
+              | . Le lecteur parcourt, retient peu, et passe a autre chose.
+            
+            p 
+              | En transformant ce meme contenu en 
+              strong parcours d'apprentissage interactif
+              | , vous multipliez par 3 l'engagement et par 5 la retention !
+
+            h2 📊 Les Chiffres Cles
+            ul
+              li Newsletter classique : 23% de retention apres 48h
+              li Formation interactive : 75% de retention apres 1 semaine  
+              li Engagement actif vs passif : +300%
+              li Reutilisation du contenu : infinie vs unique
+
+          else if lesson.id === 2  
+            h2 📝 La Methode ADDIE en Action
+            p
+              | ADDIE n'est pas qu'un acronyme - c'est votre roadmap pour transformer 
+              | n'importe quel contenu en formation efficace.
+
+            h2 🔍 A - Analyse
+            p Nous avons analyse votre Newsletter :
+            ul  
+              li Contenu : Recits visuels + horizons numeriques
+              li Public : Professionnels interesses par l'innovation
+              li Objectif : Sensibiliser aux tendances digitales
+
+            h2 🎨 D - Design  
+            p Conception du parcours d'apprentissage :
+            ul
+              li Sequencage en 4 micro-modules de 5-20 minutes
+              li Objectifs SMART pour chaque leçon
+              li Quiz de validation intercales
+
+          else if lesson.id === 3
+            h2 🔄 Cas Pratique : Votre Newsletter Transformee
+            p 
+              | Prenons notre Newsletter "Recits | Horizons numeriques | Visuels" 
+              | et voyons la transformation étape par étape.
+
+            h2 🛠️ Outils de Transformation
+            p Les outils que nous utilisons dans ce prototype :
+            ul  
+              li Script de parsing HTML vers Markdown
+              li Templates d'objectifs pédagogiques
+              li Générateur de quiz automatique
+
+          else if lesson.id === 4
+            h2 🎯 Validation de vos Acquis
+            p
+              | Félicitations ! Vous avez découvert comment transformer
+              | votre contenu Newsletter en formation interactive.
+
+            h2 📋 Récapitulatif des compétences
+            ul
+              li ✅ Méthode ADDIE maîtrisée
+              li ✅ Transformation Newsletter vers formation comprise
+              li ✅ Processus reproductible documenté
+
+        .quiz-section
+          .quiz-title 
+            | 🎯 Quiz de la Leçon #{lesson.id}
+          
+          if lesson.id === 1
+            .quiz-question Quel est le taux de retention d'une Newsletter classique ?
+            .quiz-options
+              .quiz-option(data-correct="false") 45%
+              .quiz-option(data-correct="true") 23%  
+              .quiz-option(data-correct="false") 67%
+              
+          else if lesson.id === 2
+            .quiz-question Que signifie le "A" dans la methode ADDIE ?
+            .quiz-options  
+              .quiz-option(data-correct="true") Analyse
+              .quiz-option(data-correct="false") Action
+              .quiz-option(data-correct="false") Application
+
+          else if lesson.id === 3
+            .quiz-question Quel est l'avantage principal de la transformation Newsletter vers formation ?
+            .quiz-options
+              .quiz-option(data-correct="false") Plus de contenu a produire
+              .quiz-option(data-correct="true") Reutilisation intelligente + engagement actif
+              .quiz-option(data-correct="false") Moins de travail
+
+          else if lesson.id === 4
+            .quiz-question Cette methode de transformation est-elle reproductible ?
+            .quiz-options
+              .quiz-option(data-correct="true") Oui, avec n'importe quel contenu structure
+              .quiz-option(data-correct="false") Non, specifique aux Newsletters
+              .quiz-option(data-correct="false") Seulement pour les contenus techniques
+
+      .lesson-navigation
+        if prevLesson
+          a.nav-btn.secondary(href="/lesson/" + prevLesson.id) ← #{prevLesson.title.split(':')[0]}
+        else  
+          a.nav-btn.secondary(href="/module") ← Retour au Module
+          
+        if nextLesson
+          a.nav-btn.primary(href="/lesson/" + nextLesson.id) #{nextLesson.title.split(':')[0]} →
+        else
+          a.nav-btn.primary(href="/module/success") Module Terminé ! 🎉
