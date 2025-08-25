@@ -84,14 +84,18 @@ app.get('/certificat', (req, res) => {
   // Préparer les polices
   const emojiFontPath = path.join(__dirname, '../fonts/static/NotoEmoji-Regular.ttf');
   const regularFontPath = path.join(__dirname, '../fonts/OpenSans-Regular.ttf');
+  const filename = `certificat-${user.name.replace(/\s+/g, '_')}.pdf`;
 
   // Définir les headers AVANT de pipe
-  const filename = `certificat-${user.name.replace(/\s+/g, '_')}.pdf`;
-  res.setHeader('Content-disposition', `attachment; filename="${filename}"`);
-  res.setHeader('Content-type', 'application/pdf');
-  res.on('finish', () => {
-  console.log('Réponse envoyée avec succès');
-});
+    res.setHeader('Content-disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-type', 'application/pdf');
+
+    res.on('finish', () => {
+    console.log('Réponse envoyée avec succès');
+    });
+
+    console.log('Headers sent:', res.headersSent);
+
 
 
   const doc = new PDFDocument();
@@ -102,7 +106,7 @@ app.get('/certificat', (req, res) => {
   doc.registerFont('regular', regularFontPath);
 
   // Contenu du certificat
-  doc.font('emoji').fontSize(24).text('🎓', { align: 'center' });
+  doc.font('emoji').fontSize(24).text('', { align: 'center' });
   doc.font('regular').fontSize(24).text('Certificat de Formation', { align: 'center' });
   doc.moveDown();
   doc.fontSize(16).text(`Ce certificat est décerné à :`, { align: 'center' });
