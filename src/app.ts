@@ -80,7 +80,7 @@ app.get('/module/success', (req, res) => {
 app.get('/certificat-image', async (req, res) => {
   const user = req.session?.user || { name: 'Visiteur Demo', email: 'demo@test.com' };
 
-  registerFont(path.join(__dirname, '../fonts/OpenSans-Regular.ttf'), { family: 'OpenSans' });
+  registerFont(path.join(__dirname, '../fonts/opensans-regular.ttf'), { family: 'OpenSans' });
 
   const width = 1200;
   const height = 800;
