@@ -1,7 +1,6 @@
 import express from 'express';
 import session from 'express-session';
-import PDFDocument from 'pdfkit';
-import fs from 'fs';
+import { createCanvas, loadImage, registerFont } from 'canvas';
 import path from 'path';
 
 declare module 'express-session' {
@@ -78,49 +77,40 @@ app.get('/module/success', (req, res) => {
     });
 });
 
-app.get('/certificat', (req, res) => {
+app.get('/certificat-image', async (req, res) => {
   const user = req.session?.user || { name: 'Visiteur Demo', email: 'demo@test.com' };
 
-  // Préparer les polices
-  const emojiFontPath = path.join(__dirname, '../fonts/static/NotoEmoji-Regular.ttf');
-  const regularFontPath = path.join(__dirname, '../fonts/OpenSans-Regular.ttf');
-  const filename = `certificat-${user.name.replace(/\s+/g, '_')}.pdf`;
+  registerFont(path.join(__dirname, '../fonts/OpenSans-Regular.ttf'), { family: 'OpenSans' });
 
-  // Définir les headers AVANT de pipe
-    res.setHeader('Content-disposition', `attachment; filename="${filename}"`);
-    res.setHeader('Content-type', 'application/pdf');
+  const width = 1200;
+  const height = 800;
+  const canvas = createCanvas(width, height);
+  const ctx = canvas.getContext('2d');
 
-    res.on('finish', () => {
-    console.log('Réponse envoyée avec succès');
-    });
+  // Fond pastel
+  ctx.fillStyle = '#fdf6e3';
+  ctx.fillRect(0, 0, width, height);
 
-    console.log('Headers sent:', res.headersSent);
+  // Texte
+  ctx.font = 'bold 40px OpenSans';
+  ctx.fillStyle = '#333';
+  ctx.textAlign = 'center';
+  ctx.fillText('🎓 Certificat de Formation', width / 2, 100);
+  ctx.font = '28px OpenSans';
+  ctx.fillText(`Décerné à : ${user.name}`, width / 2, 200);
+  ctx.font = '22px OpenSans';
+  ctx.fillText(`Email : ${user.email}`, width / 2, 250);
+  ctx.fillText(`Date : ${new Date().toLocaleDateString('fr-FR')}`, width / 2, 300);
+  ctx.fillText('Signature : ______________________', width / 2, 400);
 
+  // Générer le buffer PNG
+  const buffer = canvas.toBuffer('image/png');
 
-
-  const doc = new PDFDocument();
-  doc.pipe(res);
-
-  // Polices
-  doc.registerFont('emoji', emojiFontPath);
-  doc.registerFont('regular', regularFontPath);
-
-  // Contenu du certificat
-  doc.font('emoji').fontSize(24).text('', { align: 'center' });
-  doc.font('regular').fontSize(24).text('Certificat de Formation', { align: 'center' });
-  doc.moveDown();
-  doc.fontSize(16).text(`Ce certificat est décerné à :`, { align: 'center' });
-  doc.fontSize(20).text(user.name, { align: 'center', underline: true });
-  doc.moveDown();
-  doc.fontSize(14).text(`Email : ${user.email}`, { align: 'center' });
-  doc.moveDown();
-  doc.text(`Module complété avec succès le ${new Date().toLocaleDateString('fr-FR')}`, { align: 'center' });
-  doc.moveDown(2);
-  doc.text('Signature : ______________________', { align: 'center' });
-
-  doc.end();
+  // Envoyer l’image
+  res.setHeader('Content-Type', 'image/png');
+  res.setHeader('Content-Disposition', `inline; filename="certificat-${user.name.replace(/\s+/g, '_')}.png"`);
+  res.send(buffer);
 });
-
 
 // Auth rapide pour demo
 app.post('/auth/demo', (req, res) => {
