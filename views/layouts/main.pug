@@ -11,10 +11,11 @@ html(lang="fr")
   body
     header.header
       .header-content
-        .logo 
-          img.logo-img(src="/images/Explorez.jpg", alt="Logo", width="74", height="64")
-          span.logo-text
-            | Récits<span.logo-separator> | </span>Horizons numériques<span.logo-separator> | </span>Visuels
+        .logo
+          a.logo-link(href="https://siasia-dev.github.io/portfolio-newsletter/latest.html", target="_blank") 
+            img.logo-img(src="/images/Explorez.jpg", alt="Logo", width="74", height="64")
+            span.logo-text
+              | Récits<span.logo-separator> | </span>Horizons numériques<span.logo-separator> | </span>Visuels
         nav.user-nav
           if user
             span Bonjour La Démo 😜!
